@@ -22,6 +22,8 @@ import yt_search
 import discord
 from discord.ext import tasks
 import aiohttp
+from random import randrange
+from huefy import hueficaion
 
 
 video_names = []
@@ -669,7 +671,15 @@ async def on_message(message):
     	print(bitc_to_rub)
     	await message.channel.send('```python\nКурс евро - ' + str(euro) + " Российский рубль" + '\nКурс доллара - ' + str(dollar) + " Российский рубль" + '\nКурс биткоина - ' + str(bitc_to_rub) + " Российский рубль" +'```')
 
-
+    # Хуефикация последнего слова в сообщении с шансом в 10%
+    # Если в сообщении мало симполом хуефикация не будет срабатывать
+    # Если в сообщении написана полная дичь или кто-то об клаву ударился, то его позовет мать
+    if len(message.content) > 4 and randrange(9) == 1:
+    	answer = hueficaion(message.content)
+    	if answer != '':
+    		await message.reply(answer, mention_author=True)
+    	else:
+    		await message.reply('Тебя мать зовет', mention_author=True)
 
     if message.content.startswith("Настя.перевод"):
     	word = message.content[14:len(message.content)]
